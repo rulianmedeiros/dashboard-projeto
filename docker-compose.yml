@@ -2,21 +2,29 @@ services:
   backend:
     build: ./backend
     container_name: dashboard-backend
+    restart: always
     ports:
       - "3001:3001"
     volumes:
       - ./backend:/app
     environment:
       - DATABASE_URL=file:./prisma/dev.db
-    # Garante que o backend aceite conexões externas
-    command: npm start
+    networks:
+      - dashboard-network
 
   frontend:
     build: ./frontend
     container_name: dashboard-frontend
+    restart: always
     ports:
       - "5173:5173"
     volumes:
       - ./frontend:/app
-    # O comando --host 0.0.0.0 resolve o erro ERR_CONNECTION_REFUSED
+    # O comando --host garante que o Vite aceite conexões de fora do container
     command: npm run dev -- --host 0.0.0.0
+    networks:
+      - dashboard-network
+
+networks:
+  dashboard-network:
+    driver: bridge
