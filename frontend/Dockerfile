@@ -1,10 +1,13 @@
-FROM node:20-slim
+# Etapa 1: Construir o site
+FROM node:20-slim AS builder
 WORKDIR /app
 COPY package*.json ./
-
-# Limpa o cache do NPM antes de instalar para evitar erros
-RUN npm cache clean --force && npm install
-
+RUN npm install
 COPY . .
-EXPOSE 5173
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+RUN npm run build
+
+# Etapa 2: Servir os arquivos prontos com Nginx
+FROM nginx:stable-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

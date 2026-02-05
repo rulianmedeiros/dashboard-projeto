@@ -5,13 +5,10 @@ services:
     restart: always
     ports:
       - "3001:3001"
-    environment:
-      - DATABASE_URL=file:./prisma/dev.db
 
   frontend:
     build: ./frontend
     container_name: dashboard-frontend
     restart: always
     ports:
-      - "80:5173"  # Mapeia a porta 80 da VPS para a 5173 do container
-    command: npm run dev -- --host 0.0.0.0
+      - "80:80" # Mapeia a porta 80 da VPS para a 80 do Nginx
