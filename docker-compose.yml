@@ -5,8 +5,6 @@ services:
     restart: always
     ports:
       - "3001:3001"
-    volumes:
-      - ./backend:/app
     environment:
       - DATABASE_URL=file:./prisma/dev.db
 
@@ -16,7 +14,5 @@ services:
     restart: always
     ports:
       - "5173:5173"
-    volumes:
-      - ./frontend:/app
-    # ESTA LINHA É O SEGREDO: Abre o sinal para o Nginx
+    # O comando abaixo é o que mata o erro de conexão recusada
     command: npm run dev -- --host 0.0.0.0
