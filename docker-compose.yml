@@ -8,6 +8,8 @@ services:
       - ./backend:/app
     environment:
       - DATABASE_URL=file:./prisma/dev.db
+    # Garante que o backend aceite conexões externas
+    command: npm start
 
   frontend:
     build: ./frontend
@@ -16,3 +18,5 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+    # O comando --host 0.0.0.0 resolve o erro ERR_CONNECTION_REFUSED
+    command: npm run dev -- --host 0.0.0.0
