@@ -1,24 +1,20 @@
 services:
   backend:
-    build: 
-      context: ./backend
+    build: ./backend
     container_name: dashboard-backend
     restart: always
     ports:
       - "3001:3001"
     volumes:
       - ./backend:/app
-    environment:
-      - DATABASE_URL=file:./prisma/dev.db
 
   frontend:
-    build: 
-      context: ./frontend
+    build: ./frontend
     container_name: dashboard-frontend
     restart: always
     ports:
       - "5173:5173"
     volumes:
       - ./frontend:/app
-    # O --host 0.0.0.0 é obrigatório para resolver o erro de conexão
+    # O comando --host é vital para o Nginx conseguir ler o site
     command: npm run dev -- --host 0.0.0.0
