@@ -4,7 +4,7 @@ services:
     container_name: dashboard-backend
     restart: always
     ports:
-      - "8082:3001"
+      - "3001:3001"
     environment:
       - DATABASE_URL=file:./prisma/dev.db
 
@@ -13,6 +13,5 @@ services:
     container_name: dashboard-frontend
     restart: always
     ports:
-      - "8081:80"
-    # O comando --host 0.0.0.0 garante que o sinal saia do container para a VPS
+      - "80:5173"  # Mapeia a porta 80 da VPS para a 5173 do container
     command: npm run dev -- --host 0.0.0.0
