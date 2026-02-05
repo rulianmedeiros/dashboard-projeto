@@ -1,0 +1,9 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod # Aponta para o nosso novo Dockerfile
+    container_name: dashboard-frontend-prod
+    restart: always
+    ports:
+      - "80:80"
