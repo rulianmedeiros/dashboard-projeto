@@ -4,7 +4,7 @@ services:
     container_name: dashboard-backend
     restart: always
     ports:
-      - "3001:3001"
+      - "8082:3001"
     environment:
       - DATABASE_URL=file:./prisma/dev.db
 
@@ -13,6 +13,6 @@ services:
     container_name: dashboard-frontend
     restart: always
     ports:
-      - "5173:5173"
-    # O comando abaixo é o que mata o erro de conexão recusada
+      - "8081:80"
+    # O comando --host 0.0.0.0 garante que o sinal saia do container para a VPS
     command: npm run dev -- --host 0.0.0.0
