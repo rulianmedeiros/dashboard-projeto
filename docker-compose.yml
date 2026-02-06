@@ -1,6 +1,11 @@
-frontend:
-    build: ./frontend
-    container_name: dashboard-frontend
+version: '3.8'
+
+services:
+  site:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: dashboard-app-final
     restart: always
     ports:
-      - "8085:80" # Porta 8081 na VPS leva para a 80 do container
+      - "8086:80"
